@@ -1,0 +1,36 @@
+<h1>Diagn Alley</h1>
+
+<h3>Links</h3>
+<ul>
+  <% DiagPages.configuration.external_links.each do |link| %>
+    <%= content_tag :li do -%>
+      <%= link_to "#{link[:title]}", "#{link[:link]}", target: "_blank", rel: "nofollow" %>
+    <% end -%>
+  <% end %>
+</ul>
+
+<h3>Tests</h3>
+<ul>
+  <% DiagPages.configuration.combined_tests.each do |test| %>
+    <%= content_tag :li do -%>
+      <%= link_to "#{test[:name]}", "?test=#{test[:link]}" %>
+    <% end -%>
+  <% end %>
+  <li>
+    <a href="?test=all">All Tests</a>
+  </li>
+</ul>
+
+<% if @tests.present? %>
+<h3>Tests</h3>
+  <% @tests.each do |test| %>
+    <%= content_tag :p do -%>
+      <%= "Test Name: #{test[:name]} : status: #{test[:status]} : time: #{test[:time].to_d.truncate(5).to_f}s" %>
+    <% end -%>
+  <% end %>
+
+<% else %>
+
+Welcome to the wonderful world of diag pages. Click a test to get you started. One of my personal favorites is the email test.
+
+<% end %>
