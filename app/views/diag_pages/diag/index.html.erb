@@ -1,36 +1,68 @@
-<h1>Diagnostics</h1>
+<nav class="navbar navbar-dark navbar-fixed-top bg-inverse">
+  <button type="button" class="navbar-toggler hidden-sm-up" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar" aria-label="Toggle navigation"></button>
+  <img src="/assets/diag_pages/logo-white.svg" alt="PennyMac" class="logo"><h4>Diagnostics</h4>
+</nav>
 
-<h3>Links</h3>
-<ul>
-  <% DiagPages.configuration.external_links.each do |link| %>
-    <%= content_tag :li do -%>
-      <%= link_to "#{link[:title]}", "#{link[:link]}", target: "_blank", rel: "nofollow" %>
-    <% end -%>
-  <% end %>
-</ul>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-3 col-md-2 sidebar">
+      <h4>Tests</h4>
+      <ul class="nav nav-sidebar">
+        <% DiagPages.configuration.combined_tests.each do |test| %>
+          <%= content_tag :li, class: "#{test[:link] == params[:test] ? 'active' : 'not-active'}" do %>
+            <%= link_to "#{test[:name]}", "?test=#{test[:link]}" %>
+          <% end -%>
+        <% end %>
+        <li class=<%= "#{'all' == params[:test] ? 'active' : 'not-active'}" %>>
+          <a href="?test=all">All Tests</a>
+        </li>
 
-<h3>Tests</h3>
-<ul>
-  <% DiagPages.configuration.combined_tests.each do |test| %>
-    <%= content_tag :li do -%>
-      <%= link_to "#{test[:name]}", "?test=#{test[:link]}" %>
-    <% end -%>
-  <% end %>
-  <li>
-    <a href="?test=all">All Tests</a>
-  </li>
-</ul>
+      </ul>
+      <h4>External Links</h4>
+      <ul class="nav nav-sidebar">
+        <% DiagPages.configuration.external_links.each do |link| %>
+          <%= content_tag :li do -%>
+            <%= link_to "#{link[:title]}", "#{link[:link]}", target: "_blank", rel: "nofollow" %>
+          <% end -%>
+        <% end %>
+      </ul>
+    </div>
+    <div class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 main">
 
-<% if @tests.present? %>
-<h3>Tests</h3>
-  <% @tests.each do |test| %>
-    <%= content_tag :p do -%>
-      <%= "Test Name: #{test[:name]} : status: #{test[:status]} : time: #{test[:time].to_d.truncate(5).to_f}s" %>
-    <% end -%>
-  <% end %>
+      <% if @tests.present? %>
 
-<% else %>
+      <h2>Test Results</h2>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Description</th>
+              <th>Status</th>
+              <th>Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @tests.each do |test| %>
+              <%= content_tag :tr do -%>
+                <%=
+                "<td>#{test[:name]}</td>
+                <td>#{test[:description]}</td>
+                <td>#{test[:status]}</td>
+                <td>#{test[:time].to_d.truncate(5).to_f}s</td>".html_safe
+                %>
+              <% end -%>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
 
-Welcome to the wonderful world of diag pages. Click a test to get you started. One of my personal favorites is the email test.
+      <% else %>
 
-<% end %>
+      Welcome to the wonderful world of diag pages. Let's run some tests, click a link on the left to get you started.
+
+      <% end %>
+
+    </div>
+  </div>
+</div>
