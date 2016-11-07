@@ -18,7 +18,9 @@
         </li>
 
       </ul>
+      <% if DiagPages.configuration.external_links.present? %>
       <h4>External Links</h4>
+      <% end %>
       <ul class="nav nav-sidebar">
         <% DiagPages.configuration.external_links.each do |link| %>
           <%= content_tag :li do -%>
