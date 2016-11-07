@@ -130,3 +130,20 @@ body {
     margin-right: 10px;
   }
 }
+
+.status {
+  margin: auto;
+  border-radius: 35px;
+  width: 35px;
+  height: 35px;
+  line-height: 2.1em;
+  color: #fff;
+  text-align: center;
+}
+.passed {
+  background-color: #9ed515;
+}
+
+.failed {
+  background-color: red;
+}

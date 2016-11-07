@@ -39,15 +39,18 @@
               <th>Name</th>
               <th>Description</th>
               <th>Status</th>
+              <th>Result</th>
               <th>Time</th>
             </tr>
           </thead>
           <tbody>
             <% @tests.each do |test| %>
+              <% class_name = (test[:status] == 'failed' || test[:status] === false) ? 'failed' : 'passed' %>
               <%= content_tag :tr do -%>
                 <%=
                 "<td>#{test[:name]}</td>
                 <td>#{test[:description]}</td>
+                <td><div class='status #{class_name}'>#{class_name[0].upcase}</div></td>
                 <td>#{test[:status]}</td>
                 <td>#{test[:time].to_d.truncate(5).to_f}s</td>".html_safe
                 %>
