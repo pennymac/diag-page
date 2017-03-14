@@ -18,8 +18,9 @@
         </li>
 
       </ul>
+      <% DiagPages.configuration.external_links.push({title:"New Relic", link:"https://rpm.newrelic.com/accounts/399786/applications/#{NewRelic::Agent.config[:application_id]}"}) if DiagPages.configuration.external_links.empty? %>
       <% if DiagPages.configuration.external_links.present? %>
-      <h4>External Links</h4>
+      <h4>Links</h4>
       <% end %>
       <ul class="nav nav-sidebar">
         <% DiagPages.configuration.external_links.each do |link| %>
