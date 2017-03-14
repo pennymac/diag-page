@@ -14,9 +14,6 @@ module DiagPages
         @tests = DiagPages.configuration.combined_tests
       end
 
-      Rails.logger.debug "one offz"
-      Rails.logger.debug @tests.inspect
-
       if @tests.present?
         @tests.each do |test|
           time = Benchmark.realtime do
